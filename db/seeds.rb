@@ -9,11 +9,22 @@ require 'faker'
 
 puts 'Creating 10 fake restaurants...'
 10.times do
+  user = User.new(
+    email: Faker::Internet.email,
+    password: Faker::Internet.password,
+  )
+  user.save!
   restaurant = Restaurant.new(
-    user_id: 1,
-    name:    Faker::Company.name,
+    user_id: user.id,
+    name:    Faker::Restaurant.name,
     address: "#{Faker::Address.street_address}, #{Faker::Address.city}",
   )
   restaurant.save!
+  comment = Comment.new(
+    content: Faker::Restaurant.review,
+    user_id: user.id,
+    restaurant_id: restaurant.id,
+  )
+  comment.save!
 end
 puts 'Finished!'

@@ -4,4 +4,9 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
     @restaurants = policy_scope(Restaurant)
   end
 
+  def show
+    @restaurant = Restaurant.find(params[:id])
+    authorize @restaurant
+  end
+  
 end
