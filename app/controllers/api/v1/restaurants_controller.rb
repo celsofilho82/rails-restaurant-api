@@ -31,6 +31,15 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
     end
   end
   
+  def destroy
+    @restaurant = Restaurant.find(params[:id])
+    if @restaurant.delete
+      head :no_content
+    else
+      render_error
+    end
+  end
+  
   
   private
 
